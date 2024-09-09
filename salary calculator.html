@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Salary Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        input {
+            padding: 10px;
+            width: 100%;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            padding: 10px;
+            width: 100%;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Salary Calculator</h2>
+    <input type="number" id="basicSalary" placeholder="Enter Basic Salary">
+    <input type="number" id="allowance" placeholder="Enter Allowance">
+    <input type="number" id="overtimeHours" placeholder="Enter Overtime Hours">
+    <button onclick="calculateSalary()">Calculate Salary</button>
+
+    <div class="result" id="resultText"></div>
+</div>
+
+<script>
+    function calculateSalary() {
+        // Get the input values
+        let basicSalary = parseFloat(document.getElementById('basicSalary').value);
+        let allowance = parseFloat(document.getElementById('allowance').value);
+        let overtimeHours = parseFloat(document.getElementById('overtimeHours').value);
+
+        if (isNaN(basicSalary) || isNaN(allowance) || isNaN(overtimeHours)) {
+            document.getElementById('resultText').innerHTML = "Please fill all fields with valid numbers.";
+            return;
+        }
+
+        // Calculate overtime rate and overtime pay
+        let overtimeRate = ((basicSalary / 30) / 8) * 1.5;
+        let overtimePay = overtimeHours * overtimeRate;
+
+        // Calculate total salary
+        let totalSalary = basicSalary + allowance + overtimePay;
+
+        // Display the result
+        document.getElementById('resultText').innerHTML = `Overtime Pay: ${overtimePay.toFixed(2)}<br>Total Salary: ${totalSalary.toFixed(2)}`;
+    }
+</script>
+
+</body>
+</html>
